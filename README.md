@@ -54,7 +54,7 @@ Project 3/
 
 ## 📸 Preview
 
-_Stay tuned for a live demo and high-resolution screenshots!_
+(https://musabshaikhh.github.io/Online-Fashion-Store/)
 
 ## 📄 License
 
