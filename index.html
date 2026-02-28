@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUXE — Modern Fashion Store</title>
+    <meta
+      name="description"
+      content="Discover curated modern fashion for men and women. Shop clothes, accessories, and more at LUXE."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-root"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <img
+        class="hero-img"
+        src="https://images.unsplash.com/photo-1624192647570-1131acc12ccf?q=80&w=876&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Hero Fashion"
+      />
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-label">New Season 2026</p>
+        <h1>Define Your<br />Bold Style.</h1>
+        <p>
+          Curated collections for the modern individual. Fashion that speaks
+          before you do.
+        </p>
+        <div class="hero-actions">
+          <a href="shop.html" class="btn btn-white">Shop Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED CATEGORIES -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">Browse By</p>
+        <h2 class="section-title">Featured Categories</h2>
+        <div class="categories-grid">
+          <a href="men.html" class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1621335829175-95f437384d7c?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Men"
+            />
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-info">
+              <span>Collection</span>
+              <h3>Men</h3>
+              <span class="cat-explore"
+                >Explore
+                <i class="fas fa-arrow-right" style="font-size: 0.6rem"></i
+              ></span>
+            </div>
+          </a>
+          <a href="women.html" class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=80"
+              alt="Women"
+            />
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-info">
+              <span>Collection</span>
+              <h3>Women</h3>
+              <span class="cat-explore"
+                >Explore
+                <i class="fas fa-arrow-right" style="font-size: 0.6rem"></i
+              ></span>
+            </div>
+          </a>
+          <a href="accessories.html" class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=80"
+              alt="Accessories"
+            />
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-info">
+              <span>Collection</span>
+              <h3>Accessories</h3>
+              <span class="cat-explore"
+                >Explore
+                <i class="fas fa-arrow-right" style="font-size: 0.6rem"></i
+              ></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRENDING PRODUCTS -->
+    <section class="section" style="background: var(--off-white)">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="section-label">What's Hot</p>
+            <h2 class="section-title" style="margin-bottom: 0">Trending Now</h2>
+          </div>
+          <a href="shop.html" class="view-all"
+            >View All <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+        <div class="products-grid" id="trendingGrid"></div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+      <div class="container">
+        <h2>Join the LUXE Community</h2>
+        <p>
+          Get early access to new arrivals, exclusive offers, and style
+          inspiration.
+        </p>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input
+            type="email"
+            placeholder="Your email address"
+            autocomplete="email"
+          />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script>
+      renderProducts("trendingGrid", PRODUCTS.featured);
+    </script>
+  </body>
+</html>

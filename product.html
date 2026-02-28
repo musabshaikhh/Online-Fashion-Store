@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details | LUXE</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-root"></div>
+
+    <section class="section">
+      <div class="container">
+        <div class="product-detail-layout" id="productDetail">
+          <div class="product-gallery">
+            <img id="mainImg" src="" alt="Product" />
+          </div>
+          <div class="product-info-detail">
+            <p class="detail-category" id="detailCat"></p>
+            <h1 class="detail-title" id="detailTitle"></h1>
+            <p class="detail-price" id="detailPrice"></p>
+            <div class="detail-description">
+              <p id="detailDesc">
+                A premium item crafted for the modern individual. Designed with
+                attention to detail and quality materials to ensure both style
+                and comfort.
+              </p>
+            </div>
+            <div class="detail-actions">
+              <button class="btn btn-dark add-to-cart" id="addToCartBtn">
+                Add to Cart
+              </button>
+              <button class="fav-btn fav-btn-large" id="favBtn">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script>
+      // Populate product details from URL param
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      const product =
+        PRODUCTS.all.find((p) => p.id === id) || PRODUCTS.featured[0];
+
+      if (product) {
+        document.getElementById("mainImg").src = product.img;
+        document.getElementById("detailCat").textContent = product.category;
+        document.getElementById("detailTitle").textContent = product.name;
+        document.getElementById("detailPrice").textContent =
+          `$${product.price.toFixed(2)}`;
+        document.getElementById("addToCartBtn").dataset.id = product.id;
+        document.getElementById("favBtn").dataset.id = product.id;
+
+        // Update document title
+        document.title = `${product.name} | LUXE`;
+      }
+    </script>
+  </body>
+</html>

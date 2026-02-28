@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Men's Collection | LUXE</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-root"></div>
+
+    <div class="page-hero">
+      <img
+        src="https://images.unsplash.com/photo-1617196033993-87a37a1ee5cc?w=1600&q=80"
+        alt="Men's Collection"
+      />
+      <div class="page-hero-content container">
+        <p class="section-label">Collection</p>
+        <h1>Men</h1>
+        <p>
+          Modern essentials for the contemporary man. Discover our collection of
+          jackets, tees, and premium streetwear.
+        </p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="sub-nav">
+          <a href="#" class="active" data-filter="all">All</a>
+          <a href="#" data-filter="T-Shirts">T-Shirts</a>
+          <a href="#" data-filter="Hoodies">Hoodies</a>
+          <a href="#" data-filter="Jackets">Jackets</a>
+          <a href="#" data-filter="Jeans">Jeans</a>
+          <a href="#" data-filter="Sneakers">Sneakers</a>
+        </div>
+        <div class="products-grid" id="menGrid"></div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script>
+      renderProducts("menGrid", PRODUCTS.men);
+
+      // Filter logic
+      document.querySelectorAll(".sub-nav a").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          document
+            .querySelectorAll(".sub-nav a")
+            .forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+
+          const filter = this.dataset.filter;
+          renderProducts(
+            "menGrid",
+            filter === "all"
+              ? PRODUCTS.men
+              : PRODUCTS.men.filter((p) => p.category.includes(filter)),
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

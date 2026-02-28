@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart | LUXE</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-root"></div>
+
+    <section class="section">
+      <div class="container" id="cartContainer">
+        <h1 class="section-title">Your Shopping Cart</h1>
+        <div class="cart-layout" id="cartLayout" style="display: none">
+          <div class="cart-items" id="cartItemsList">
+            <!-- Items injected here -->
+          </div>
+          <div class="cart-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+            <div class="summary-total summary-row">
+              <span>Total</span>
+              <span id="total">$0.00</span>
+            </div>
+            <button class="btn btn-dark" style="width: 100%; margin-top: 30px">
+              Checkout Now
+            </button>
+          </div>
+        </div>
+
+        <div class="empty-state" id="cartEmptyState">
+          <i class="fas fa-shopping-bag"></i>
+          <p>Your cart feels a bit light...</p>
+          <a href="shop.html" class="btn btn-dark">Start Shopping</a>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+      function renderCartPage() {
+        const cart = getCart();
+        const emptyState = document.getElementById("cartEmptyState");
+        const layout = document.getElementById("cartLayout");
+        const list = document.getElementById("cartItemsList");
+
+        if (cart.length === 0) {
+          emptyState.style.display = "block";
+          layout.style.display = "none";
+          return;
+        }
+
+        emptyState.style.display = "none";
+        layout.style.display = "grid";
+
+        let subtotal = 0;
+        list.innerHTML = cart
+          .map((item) => {
+            const p = PRODUCTS.all.find((x) => x.id === item.id);
+            if (!p) return "";
+            subtotal += p.price * item.qty;
+            return `
+            <div class="cart-item">
+              <div class="cart-item-img">
+                <img src="${p.img}" alt="${p.name}">
+              </div>
+              <div class="cart-item-info">
+                <p class="product-category">${p.category}</p>
+                <h4>${p.name}</h4>
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="updateQty('${p.id}', -1)">-</button>
+                  <span>${item.qty}</span>
+                  <button class="qty-btn" onclick="updateQty('${p.id}', 1)">+</button>
+                </div>
+              </div>
+              <div class="cart-item-price">
+                <p style="font-weight:600">$${(p.price * item.qty).toFixed(2)}</p>
+                <button onclick="removeFromCart('${p.id}')" style="color:var(--danger); font-size:0.8rem; margin-top:10px; font-weight:600">Remove</button>
+              </div>
+            </div>
+          `;
+          })
+          .join("");
+
+        document.getElementById("subtotal").textContent =
+          `$${subtotal.toFixed(2)}`;
+        document.getElementById("total").textContent =
+          `$${subtotal.toFixed(2)}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", renderCartPage);
+    </script>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/cart.js"></script>
+  </body>
+</html>

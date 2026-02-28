@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop All | LUXE</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-root"></div>
+
+    <div class="page-hero">
+      <img
+        src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80"
+        alt="Shop All"
+      />
+      <div class="page-hero-content container">
+        <p class="section-label">Store</p>
+        <h1>Shop All</h1>
+        <p>
+          Everything you need to redefine your style. Browse our entire catalog
+          of premium fashion and accessories.
+        </p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="shop-layout">
+          <aside class="sidebar">
+            <div class="filter-group">
+              <h3>
+                <i
+                  class="fas fa-filter"
+                  style="font-size: 0.7rem; margin-right: 10px; opacity: 0.6"
+                ></i
+                >Categories
+              </h3>
+              <ul class="filter-list">
+                <li>
+                  <a href="#" class="active" data-cat="all">All Categories</a>
+                </li>
+                <li><a href="#" data-cat="Men">Men's Fashion</a></li>
+                <li><a href="#" data-cat="Women">Women's Fashion</a></li>
+                <li><a href="#" data-cat="Accessories">Accessories</a></li>
+              </ul>
+            </div>
+          </aside>
+
+          <main class="shop-main">
+            <div class="shop-top">
+              <p id="productCount">Showing all products</p>
+              <div class="sort-wrap">
+                <label for="sortSelect">Sort By:</label>
+                <select id="sortSelect">
+                  <option>Latest</option>
+                  <option>Price: Low to High</option>
+                  <option>Price: High to Low</option>
+                </select>
+              </div>
+            </div>
+            <div class="products-grid" id="shopGrid"></div>
+          </main>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script>
+      let currentProducts = [...PRODUCTS.all];
+
+      function setupFilters() {
+        const links = document.querySelectorAll(".filter-list a");
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            links.forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
+
+            const cat = link.dataset.cat;
+            if (cat === "all") {
+              currentProducts = [...PRODUCTS.all];
+            } else {
+              currentProducts = PRODUCTS.all.filter((p) =>
+                p.category.toLowerCase().includes(cat.toLowerCase()),
+              );
+            }
+            applySort();
+          });
+        });
+      }
+
+      function applySort() {
+        const sort = document.getElementById("sortSelect").value;
+        if (sort === "Price: Low to High") {
+          currentProducts.sort((a, b) => a.price - b.price);
+        } else if (sort === "Price: High to Low") {
+          currentProducts.sort((a, b) => b.price - a.price);
+        }
+
+        renderProducts("shopGrid", currentProducts);
+        document.getElementById("productCount").textContent =
+          `Showing ${currentProducts.length} products`;
+      }
+
+      // Initial render & setup
+      renderProducts("shopGrid", PRODUCTS.all);
+      document.getElementById("productCount").textContent =
+        `Showing ${PRODUCTS.all.length} products`;
+
+      setupFilters();
+      document
+        .getElementById("sortSelect")
+        .addEventListener("change", applySort);
+    </script>
+  </body>
+</html>

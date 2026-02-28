@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Women's Collection | LUXE</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-root"></div>
+
+    <div class="page-hero">
+      <img
+        src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80"
+        alt="Women's Collection"
+      />
+      <div class="page-hero-content container">
+        <p class="section-label">Collection</p>
+        <h1>Women</h1>
+        <p>
+          Elegance in every thread. Discover our latest curated pieces for
+          contemporary women's fashion.
+        </p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="sub-nav">
+          <a href="#" class="active" data-filter="all">All</a>
+          <a href="#" data-filter="Dresses">Dresses</a>
+          <a href="#" data-filter="Tops">Tops</a>
+          <a href="#" data-filter="Skirts">Skirts</a>
+          <a href="#" data-filter="Pants">Pants</a>
+          <a href="#" data-filter="Jewelry">Jewelry</a>
+        </div>
+        <div class="products-grid" id="womenGrid"></div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/favorites.js"></script>
+    <script>
+      renderProducts("womenGrid", PRODUCTS.women);
+
+      // Filter logic
+      document.querySelectorAll(".sub-nav a").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          document
+            .querySelectorAll(".sub-nav a")
+            .forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+
+          const filter = this.dataset.filter;
+          renderProducts(
+            "womenGrid",
+            filter === "all"
+              ? PRODUCTS.women
+              : PRODUCTS.women.filter((p) => p.category.includes(filter)),
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
